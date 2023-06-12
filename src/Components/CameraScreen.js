@@ -55,9 +55,9 @@ const CameraScreen = () => {
       <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
       <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
       <h2>Orientation:</h2>
-      <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
+      {/* <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
       <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
-      <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
+      <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p> */}
     </div>
   );
 };
