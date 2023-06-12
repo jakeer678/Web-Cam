@@ -25,11 +25,10 @@ const CameraScreen = () => {
 
   useEffect(() => {
     const handleDeviceOrientation = (event) => {
-        const { alpha, beta, gamma } = event;
-        console.log('Device Orientation:', event);
-        setOrientation({ alpha, beta, gamma });
-      };
-      
+      const { alpha, beta, gamma } = event;
+      console.log('Device Orientation:', event);
+      setOrientation({ alpha, beta, gamma });
+    };
 
     if ('DeviceOrientationEvent' in window) {
       window.addEventListener('deviceorientation', handleDeviceOrientation);
@@ -41,11 +40,15 @@ const CameraScreen = () => {
       window.removeEventListener('deviceorientation', handleDeviceOrientation);
     };
   }, []);
-  
+
+  const rotateStyle = {
+    transform: `rotate(${orientation.alpha ? orientation.alpha : 0}deg)`,
+  };
+
   return (
     <div>
       <h1>Camera Screen</h1>
-      <div style={{ width: '100%', height: '50vh' }}>
+      <div style={{ width: '100%', height: '50vh', ...rotateStyle }}>
         <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
       </div>
       <h2>Coordinates:</h2>
@@ -53,7 +56,6 @@ const CameraScreen = () => {
       <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
       <h2>Orientation:</h2>
       <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
-    
       <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
       <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
     </div>
