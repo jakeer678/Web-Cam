@@ -31,21 +31,19 @@ const CameraScreen = () => {
 
   useEffect(() => {
     const handleDeviceOrientation = (event) => {
-      const { alpha, beta, gamma } = event;
+      let { alpha, beta, gamma } = event;
 
       // Normalize the values to be within the range of 0-360 degrees
-      let updatedAlpha = alpha >= 0 ? alpha % 360 : 360 - Math.abs(alpha % 360);
-      let updatedBeta = beta >= 0 ? beta % 360 : 360 - Math.abs(beta % 360);
-      let updatedGamma = gamma >= 0 ? gamma % 360 : 360 - Math.abs(gamma % 360);
+      alpha = (alpha + 360) % 360;
+      beta = (beta + 360) % 360;
+      gamma = (gamma + 360) % 360;
 
-      setOrientation({ alpha: updatedAlpha, beta: updatedBeta, gamma: updatedGamma });
-      
-      // Update the coordinates based on the orientation values
-      const updatedCoordinates = {
-        latitude: coordinates.latitude + updatedBeta,
-        longitude: coordinates.longitude + updatedGamma,
-      };
-      setCoordinates(updatedCoordinates);
+      setOrientation({ alpha, beta, gamma });
+
+      setCoordinates((prevCoordinates) => ({
+        latitude: (prevCoordinates.latitude + beta) % 360,
+        longitude: (prevCoordinates.longitude + gamma) % 360,
+      }));
     };
 
     window.addEventListener("deviceorientation", handleDeviceOrientation);
@@ -53,7 +51,7 @@ const CameraScreen = () => {
     return () => {
       window.removeEventListener("deviceorientation", handleDeviceOrientation);
     };
-  }, [coordinates]);
+  }, []);
 
   const capturePhoto = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -83,9 +81,9 @@ const CameraScreen = () => {
         </div>
         <div className="orientation-container">
           <h2>Orientation:</h2>
-          <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
-          <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
-          <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
+          <p>Alpha: {orientation.alpha.toFixed(2)}°</p>
+          <p>Beta: {orientation.beta.toFixed(2)}°</p>
+          <p>Gamma: {orientation.gamma.toFixed(2)}°</p>
         </div>
         <div className="photo-container">
           {photo ? (
