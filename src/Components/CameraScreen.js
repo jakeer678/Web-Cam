@@ -4,11 +4,7 @@ import "./CameraScreen.css";
 
 const CameraScreen = () => {
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
-  const [orientation, setOrientation] = useState({
-    alpha: 0,
-    beta: 0,
-    gamma: 0,
-  });
+
   const [photo, setPhoto] = useState(null);
   const webcamRef = useRef(null);
 
@@ -18,10 +14,10 @@ const CameraScreen = () => {
       setCoordinates({ latitude, longitude });
     };
 
-    if ("geolocation" in navigator) {
+    if ('geolocation' in navigator) {
       navigator.geolocation.watchPosition(handleGeolocation);
     } else {
-      console.log("Geolocation is not supported");
+      console.log('Geolocation is not supported');
     }
 
     return () => {
@@ -31,16 +27,25 @@ const CameraScreen = () => {
 
   useEffect(() => {
     const handleDeviceOrientation = (event) => {
-      const { alpha, beta, gamma } = event;
-      setOrientation({ alpha, beta, gamma });
+      const { beta, gamma } = event;
+      const updatedCoordinates = {
+        latitude: coordinates.latitude + beta,
+        longitude: coordinates.longitude + gamma,
+      };
+      setCoordinates(updatedCoordinates);
     };
 
-    window.addEventListener("deviceorientation", handleDeviceOrientation);
+    if ('DeviceOrientationEvent' in window) {
+      window.addEventListener('deviceorientation', handleDeviceOrientation);
+    } else {
+      console.log('Device orientation events are not supported');
+    }
 
     return () => {
-      window.removeEventListener("deviceorientation", handleDeviceOrientation);
+      window.removeEventListener('deviceorientation', handleDeviceOrientation);
     };
-  }, []);
+  }, [coordinates]);
+
 
   const capturePhoto = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -68,12 +73,7 @@ const CameraScreen = () => {
           <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
           <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
         </div>
-        <div className="orientation-container">
-          <h2>Orientation:</h2>
-          <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
-          <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
-          <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
-        </div>
+        
         <div className="photo-container">
           {photo ? (
             <div>
