@@ -89,14 +89,15 @@ const CameraScreen = () => {
           <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
         </div>
         <div className="photo-container">
-          {photo ? (
+          {photo && (
             <div>
               <img src={photo} alt="Captured" className="captured-photo" />
               <button onClick={retakePhoto} className="retake-button">
                 Retake Photo
               </button>
             </div>
-          ) : (
+          )}
+          {!photo && (
             <button onClick={capturePhoto} className="capture-button">
               Capture Photo
             </button>
