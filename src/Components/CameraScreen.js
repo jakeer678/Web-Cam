@@ -26,6 +26,7 @@ const CameraScreen = () => {
   useEffect(() => {
     const handleDeviceOrientation = (event) => {
       const { alpha, beta, gamma } = event;
+      console.log('Device Orientation:', event);
       setOrientation({ alpha, beta, gamma });
     };
 
@@ -40,48 +41,22 @@ const CameraScreen = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleOrientationChange = () => {
-      if (window.orientation !== 0) {
-        window.screen.orientation.lock('portrait').catch((error) => {
-          console.log('Failed to lock the screen orientation:', error);
-        });
-      }
-    };
-
-    handleOrientationChange();
-
-    window.addEventListener('orientationchange', handleOrientationChange);
-
-    return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange);
-    };
-  }, []);
-
-  const calculateRotationAngle = () => {
-    let rotation = orientation.alpha ? orientation.alpha : 0;
-    if (rotation < 0) {
-      rotation += 360;
-    }
-    return 360 - rotation;
-  };
-
-  const rotateStyle = {
-    transform: `rotate(${calculateRotationAngle()}deg)`,
-  };
-
   return (
-    <div className="camera-screen">
-      <h1 className="title">Camera Screen</h1>
-      <div className="camera-container" style={rotateStyle}>
-        <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
-        <div className="overlay">
-          <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
-          <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
-          <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
-          <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
-          <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
-        </div>
+    <div className="container">
+      <h1>Camera Screen</h1>
+      <div className="webcam-container">
+        <Webcam className="webcam-video" audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
+      </div>
+      <div className="coordinates">
+        <h2>Coordinates:</h2>
+        <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
+        <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
+      </div>
+      <div className="orientation">
+        <h2>Orientation:</h2>
+        <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
+        <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
+        <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
       </div>
     </div>
   );
