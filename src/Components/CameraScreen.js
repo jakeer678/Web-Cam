@@ -81,9 +81,9 @@ const CameraScreen = () => {
         </div>
         <div className="orientation-container">
           <h2>Orientation:</h2>
-          <p>Alpha: {orientation.alpha.toFixed(2)}°</p>
-          <p>Beta: {orientation.beta.toFixed(2)}°</p>
-          <p>Gamma: {orientation.gamma.toFixed(2)}°</p>
+          <p>Alpha(z-axis): {orientation.alpha.toFixed(2)}°</p>
+          <p>Beta(x-axis): {orientation.beta.toFixed(2)}°</p>
+          <p>Gamma(y-axis): {orientation.gamma.toFixed(2)}°</p>
         </div>
         <div className="photo-container">
           {photo ? (

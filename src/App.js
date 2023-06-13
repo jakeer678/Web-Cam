@@ -1,4 +1,4 @@
-import { BrowserRouter, Route,  Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navigation from "./Components/Navigation";
 import CameraScreen from "./Components/CameraScreen";
 import About from "./Components/About";
