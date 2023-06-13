@@ -6,6 +6,7 @@
     font-family: Arial, sans-serif;
     overflow: auto;
     margin-top: 4rem;
+    height: 100vh;
   }
   
   .camera-container {
