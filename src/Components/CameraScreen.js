@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Webcam from 'react-webcam';
-import './CameraScreen.css'
 
 const CameraScreen = () => {
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
@@ -38,6 +37,24 @@ const CameraScreen = () => {
 
     return () => {
       window.removeEventListener('deviceorientation', handleDeviceOrientation);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      if (window.orientation !== 0) {
+        window.screen.orientation.lock('portrait').catch((error) => {
+          console.log('Failed to lock the screen orientation:', error);
+        });
+      }
+    };
+
+    handleOrientationChange();
+
+    window.addEventListener('orientationchange', handleOrientationChange);
+
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange);
     };
   }, []);
 
