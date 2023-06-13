@@ -4,6 +4,11 @@ import "./CameraScreen.css";
 
 const CameraScreen = () => {
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
+  const [orientation, setOrientation] = useState({
+    alpha: 0,
+    beta: 0,
+    gamma: 0,
+  });
   const [photo, setPhoto] = useState(null);
   const webcamRef = useRef(null);
 
@@ -26,39 +31,27 @@ const CameraScreen = () => {
 
   useEffect(() => {
     const handleDeviceOrientation = (event) => {
-      const { beta, gamma } = event;
-      let updatedLatitude = coordinates.latitude + beta;
-      let updatedLongitude = coordinates.longitude + gamma;
+      const { alpha, beta, gamma } = event;
 
-      if (updatedLatitude > 360) {
-        updatedLatitude -= 360;
-      } else if (updatedLatitude < 0) {
-        updatedLatitude += 360;
-      }
+      // Normalize the values to be within the range of 0-360 degrees
+      let updatedAlpha = alpha >= 0 ? alpha % 360 : 360 - Math.abs(alpha % 360);
+      let updatedBeta = beta >= 0 ? beta % 360 : 360 - Math.abs(beta % 360);
+      let updatedGamma = gamma >= 0 ? gamma % 360 : 360 - Math.abs(gamma % 360);
 
-      if (updatedLongitude > 360) {
-        updatedLongitude -= 360;
-      } else if (updatedLongitude < 0) {
-        updatedLongitude += 360;
-      }
-
-      setCoordinates({
-        latitude: updatedLatitude,
-        longitude: updatedLongitude,
-      });
+      setOrientation({ alpha: updatedAlpha, beta: updatedBeta, gamma: updatedGamma });
+      
+      // Update the coordinates based on the orientation values
+      const updatedCoordinates = {
+        latitude: coordinates.latitude + updatedBeta,
+        longitude: coordinates.longitude + updatedGamma,
+      };
+      setCoordinates(updatedCoordinates);
     };
 
-    if ("DeviceOrientationEvent" in window) {
-      window.addEventListener("deviceorientation", handleDeviceOrientation);
-    } else {
-      console.log("Device orientation events are not supported");
-    }
+    window.addEventListener("deviceorientation", handleDeviceOrientation);
 
     return () => {
-      window.removeEventListener(
-        "deviceorientation",
-        handleDeviceOrientation
-      );
+      window.removeEventListener("deviceorientation", handleDeviceOrientation);
     };
   }, [coordinates]);
 
@@ -88,16 +81,21 @@ const CameraScreen = () => {
           <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
           <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
         </div>
+        <div className="orientation-container">
+          <h2>Orientation:</h2>
+          <p>Alpha: {orientation.alpha ? orientation.alpha.toFixed(2) : 0}°</p>
+          <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
+          <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
+        </div>
         <div className="photo-container">
-          {photo && (
+          {photo ? (
             <div>
               <img src={photo} alt="Captured" className="captured-photo" />
               <button onClick={retakePhoto} className="retake-button">
                 Retake Photo
               </button>
             </div>
-          )}
-          {!photo && (
+          ) : (
             <button onClick={capturePhoto} className="capture-button">
               Capture Photo
             </button>
