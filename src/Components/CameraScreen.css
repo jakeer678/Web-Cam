@@ -4,6 +4,7 @@
     align-items: center;
     padding: 20px;
     font-family: Arial, sans-serif;
+    overflow: auto;
   }
   
   .camera-container {
@@ -52,6 +53,10 @@
   
     .captured-photo {
       max-height: 40vh;
+    }
+  
+    .capture-button {
+      padding: 5px 10px;
     }
   }
   

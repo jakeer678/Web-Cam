@@ -6,6 +6,7 @@ const CameraScreen = () => {
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [orientation, setOrientation] = useState({ alpha: 0, beta: 0, gamma: 0 });
   const [photo, setPhoto] = useState(null);
+  const [showCamera, setShowCamera] = useState(true);
   const webcamRef = useRef(null);
 
   useEffect(() => {
@@ -38,34 +39,37 @@ const CameraScreen = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleOrientationChange = () => {
-      const updatedOrientation = {
-        alpha: orientation.alpha >= 0 ? orientation.alpha : 360 + orientation.alpha,
-        beta: orientation.beta >= 0 ? orientation.beta : 360 + orientation.beta,
-        gamma: orientation.gamma >= 0 ? orientation.gamma : 360 + orientation.gamma,
-      };
-      setOrientation(updatedOrientation);
-    };
-
-    window.addEventListener('orientationchange', handleOrientationChange);
-
-    return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange);
-    };
-  }, [orientation]);
-
   const capturePhoto = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setPhoto(imageSrc);
+    setShowCamera(false);
+
+    // Hide the camera preview after taking the photo
+    webcamRef.current.stream.getVideoTracks().forEach((track) => track.stop());
   };
+
+  const retakePhoto = () => {
+    setPhoto(null);
+    setShowCamera(true);
+  };
+
 
   return (
     <div className="camera-screen">
-      <h1>Camera Screen</h1>
+    <h1>Camera Screen</h1>
+    {showCamera ? (
       <div className="camera-container">
         <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" className="camera" />
       </div>
+    ) : (
+      <div className="photo-container">
+        {photo && <img src={photo} alt="Captured" className="captured-photo" />}
+        <button onClick={retakePhoto} className="capture-button">
+          Retake Photo
+        </button>
+      </div>
+    )}
+    {showCamera && (
       <div className="info-container">
         <h2>Coordinates:</h2>
         <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
@@ -75,13 +79,15 @@ const CameraScreen = () => {
         <p>Beta: {orientation.beta ? orientation.beta.toFixed(2) : 0}°</p>
         <p>Gamma: {orientation.gamma ? orientation.gamma.toFixed(2) : 0}°</p>
       </div>
-      <div className="photo-container">
-        {photo && <img src={photo} alt="Captured" className="captured-photo" />}
-        <button onClick={capturePhoto} className="capture-button">
-          Capture Photo
+    )}
+    {!showCamera && (
+      <div className="navigation-container">
+        <button onClick={() => setShowCamera(true)} className="navigate-button">
+          Go Back to Camera
         </button>
       </div>
-    </div>
+    )}
+  </div>
   );
 };
 
