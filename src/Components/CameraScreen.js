@@ -58,8 +58,16 @@ const CameraScreen = () => {
     };
   }, []);
 
+  const calculateRotationAngle = () => {
+    let rotation = orientation.alpha ? orientation.alpha : 0;
+    if (rotation < 0) {
+      rotation += 360;
+    }
+    return 360 - rotation;
+  };
+
   const rotateStyle = {
-    transform: `rotate(${360 - (orientation.alpha ? orientation.alpha : 0)}deg)`,
+    transform: `rotate(${calculateRotationAngle()}deg)`,
   };
 
   return (
