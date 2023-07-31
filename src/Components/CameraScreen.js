@@ -20,6 +20,7 @@ const CameraScreen = () => {
 
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(handleGeolocation);
+      //navigator.geolocation.watchPosition(handleGeolocation);
     } else {
       console.log("Geolocation is not supported");
     }
@@ -70,7 +71,7 @@ const CameraScreen = () => {
         <h1>Camera Screen</h1>
         <div className="camera-container">
           <Webcam
-            audio={true}
+            audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             className="camera"
