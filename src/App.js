@@ -10,7 +10,6 @@ const App = () => {
       <BrowserRouter>
         <div>
           <Navigation />
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/camera" element={<CameraScreen />} />
