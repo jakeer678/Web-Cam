@@ -67,7 +67,7 @@ const CameraScreen = () => {
   return (
     <>
       <div className="camera-screen">
-        <h3>Webcam Page!</h3>
+        <h2>Webcam Page</h2>
         <div className="camera-container">
           <Webcam
             audio={false}

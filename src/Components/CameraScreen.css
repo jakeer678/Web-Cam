@@ -8,13 +8,13 @@
    background-color: rgb(56, 46, 71);
     font-family: Arial, sans-serif;
     overflow: auto;
-    height: 100vh;
+    height: 150vh;
     padding-top: 7rem;
     color: white;
   }
-  .camera-screen h1 {
+  .camera-screen h2 {
   
-    border-bottom: 1rem solid wheat;
+    border-bottom: 4px solid wheat;
   }
   .camera-container {
     height: 50vh;
@@ -54,9 +54,10 @@
     padding-left: 4rem;
   }
     .info-container h2 {
-      font-size: 1.rem;
+      font-size: 1.8rem;
       font-weight: 700;
       font-family: 'Times New Roman', Times, serif;
+      border-bottom: 3px solid rgb(12, 12, 12);
     }
   .photo-container {
     text-align: center;
@@ -122,20 +123,21 @@
     color: rgb(19, 18, 18);
     background-color:#6c6ce5;
     text-align: center;
-    color: rgb(2, 2, 2);
+    color:aliceblue;
     flex-direction: column;
   }
     .orientation-container h2 {
-      font-size: 1.rem;
+      font-size: 1.8rem;
       font-weight: 700;
       font-family: 'Times New Roman', Times, serif;
       margin-top: 2.2rem;
+      border-bottom: 3px solid wheat;
     }
      .orientation-container p {
       font-size: 1.2rem;
       font-weight: 700;
       font-family: 'Times New Roman', Times, serif;
-    text-align: left;
+    text-align: center;
     }
     .info-container p {
       font-size: 1.2rem;
@@ -172,9 +174,9 @@
     color: white;
   
   }
-  .camera-screen h1 {
+  .camera-screen h2 {
   
-    border-bottom: 1rem solid wheat;
+    border-bottom: 3px solid wheat;
   }
   .camera-container {
     height: 50vh;
@@ -189,6 +191,7 @@
     text-align: center;
     color: rgb(19, 18, 18);
    background-color: rgb(9, 85, 97);
+   margin: 0.4rem;
   }
   
   .camera {
@@ -209,13 +212,14 @@
     color: rgb(19, 18, 18);
     background-color: #f9d74c;
     flex-direction: column;
-    padding-right: 4rem;
+   
     color: rgb(34, 32, 32);
-    padding-left: 4rem;
+    padding:3.6rem;
     margin-top: 3rem;
   }
     .info-container h2 {
-      font-size: 1.rem;
+      font-size: 1.8rem;
+      border-bottom: 3px solid rgb(0, 0, 0);
       font-weight: 700;
       font-family: 'Times New Roman', Times, serif;
     }
@@ -283,15 +287,17 @@
     color: rgb(19, 18, 18);
     background-color:#6c6ce5;
     text-align: center;
-    color: rgb(2, 2, 2);
+    color:aliceblue;
     flex-direction: column;
     margin-top: 2rem;
   }
     .orientation-container h2 {
-      font-size: 1.rem;
+      font-size: 1.8rem;
       font-weight: 700;
       font-family: 'Times New Roman', Times, serif;
       margin-top: 2.2rem;
+      border-bottom: 3px solid wheat;
+      
     }
      .orientation-container p {
       font-size: 1.2rem;
