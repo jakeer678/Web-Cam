@@ -1,10 +1,14 @@
 import React from "react";
+import "./Home.css";
+import { useInView } from "react-intersection-observer";
 
 const Home = () => {
+  
   return (
-    <div>
-      <h1>Home Screen</h1>
-      <p>Welcome to the home screen!</p>
+    <div  className="home_component">
+      <div className="homepage">
+        <h1>Welcome to the Home page!</h1>
+      </div>
     </div>
   );
 };

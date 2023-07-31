@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import "./CameraScreen.css";
+import { useInView } from "react-intersection-observer";
 
 const CameraScreen = () => {
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
@@ -9,6 +10,7 @@ const CameraScreen = () => {
     beta: 0,
     gamma: 0,
   });
+ 
   const [photo, setPhoto] = useState(null);
   const webcamRef = useRef(null);
 
@@ -28,7 +30,6 @@ const CameraScreen = () => {
     return () => {
       navigator.geolocation.clearWatch(handleGeolocation);
     };
-  
   }, []);
 
   useEffect(() => {
@@ -53,7 +54,6 @@ const CameraScreen = () => {
     return () => {
       window.removeEventListener("deviceorientation", handleDeviceOrientation);
     };
-    
   }, []);
 
   const capturePhoto = () => {
@@ -66,9 +66,9 @@ const CameraScreen = () => {
   };
 
   return (
-    <section>
-      <div className="camera-screen">
-        <h1>Camera Screen</h1>
+    <>
+      <div  className="camera-screen">
+        <h3>Welcome Webcam Page!</h3>
         <div className="camera-container">
           <Webcam
             audio={false}
@@ -76,17 +76,6 @@ const CameraScreen = () => {
             screenshotFormat="image/jpeg"
             className="camera"
           />
-        </div>
-        <div className="info-container">
-          <h2>Coordinates:</h2>
-          <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
-          <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
-        </div>
-        <div className="orientation-container">
-          <h2>Orientation:</h2>
-          <p>Alpha(z-axis): {orientation.alpha.toFixed(2)}°</p>
-          <p>Beta(x-axis): {orientation.beta.toFixed(2)}°</p>
-          <p>Gamma(y-axis): {orientation.gamma.toFixed(2)}°</p>
         </div>
         <div className="photo-container">
           {photo ? (
@@ -102,8 +91,21 @@ const CameraScreen = () => {
             </button>
           )}
         </div>
+        <div className="valuescontainer">
+          <div className="info-container">
+            <h2>Coordinates</h2>
+            <p>Latitude: {coordinates.latitude.toFixed(6)}</p>
+            <p>Longitude: {coordinates.longitude.toFixed(6)}</p>
+          </div>
+          <div className="orientation-container">
+            <h2>Orientation</h2>
+            <p>Alpha(z-axis): {orientation.alpha.toFixed(2)}°</p>
+            <p>Beta(x-axis): {orientation.beta.toFixed(2)}°</p>
+            <p>Gamma(y-axis): {orientation.gamma.toFixed(2)}°</p>
+          </div>
+        </div>
       </div>
-    </section>
+    </>
   );
 };
 

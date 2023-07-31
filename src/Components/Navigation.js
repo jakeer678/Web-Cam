@@ -5,8 +5,8 @@ import "./Navbar.css";
 const Navigation = () => {
   return (
     <>
-      <nav className="navbar">
-        <ul className="nav-menu">
+      <nav>
+        <ul className="navbar">
           <li className="nav-item">
             <NavLink to="/" className="nav-link">
               Home
@@ -14,7 +14,7 @@ const Navigation = () => {
           </li>
           <li className="nav-item">
             <NavLink to="/camera" className="nav-link">
-              Camera
+              Webcam
             </NavLink>
           </li>
           <li className="nav-item">

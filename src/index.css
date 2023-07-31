@@ -1,4 +1,5 @@
-body {
-  background-color: rgba(77, 4, 77, 0.952);
-  color: aliceblue;
+* {
+  margin: 0;
+  padding: 0;
+  box-shadow: 0;
 }
