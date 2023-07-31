@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import "./CameraScreen.css";
-import { useInView } from "react-intersection-observer";
 
 const CameraScreen = () => {
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
@@ -10,7 +9,7 @@ const CameraScreen = () => {
     beta: 0,
     gamma: 0,
   });
- 
+
   const [photo, setPhoto] = useState(null);
   const webcamRef = useRef(null);
 
@@ -67,7 +66,7 @@ const CameraScreen = () => {
 
   return (
     <>
-      <div  className="camera-screen">
+      <div className="camera-screen">
         <h3>Welcome Webcam Page!</h3>
         <div className="camera-container">
           <Webcam

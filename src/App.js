@@ -4,7 +4,6 @@ import CameraScreen from "./Components/CameraScreen";
 import About from "./Components/About";
 import Home from "./Components/Home";
 
-
 const App = () => {
   return (
     <>

@@ -1,14 +1,9 @@
 import React from "react";
 import "./About.css";
-import { useInView } from "react-intersection-observer";
-import { Link } from "react-scroll";
 
 const About = () => {
-
-  
-
   return (
-    <div className="aboutpage"  >
+    <div className="aboutpage">
       <div className="aboutcard">
         <h1>About Webcam </h1>
         <p>
