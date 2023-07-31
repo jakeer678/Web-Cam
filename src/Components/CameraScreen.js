@@ -19,7 +19,7 @@ const CameraScreen = () => {
     };
 
     if ("geolocation" in navigator) {
-      navigator.geolocation.watchPosition(handleGeolocation);
+      navigator.geolocation.getCurrentPosition(handleGeolocation);
     } else {
       console.log("Geolocation is not supported");
     }
@@ -27,6 +27,7 @@ const CameraScreen = () => {
     return () => {
       navigator.geolocation.clearWatch(handleGeolocation);
     };
+  
   }, []);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const CameraScreen = () => {
     return () => {
       window.removeEventListener("deviceorientation", handleDeviceOrientation);
     };
+    
   }, []);
 
   const capturePhoto = () => {
@@ -68,7 +70,7 @@ const CameraScreen = () => {
         <h1>Camera Screen</h1>
         <div className="camera-container">
           <Webcam
-            audio={false}
+            audio={true}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             className="camera"
