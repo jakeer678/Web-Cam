@@ -29,6 +29,7 @@
     text-align: center;
     color: rgb(19, 18, 18);
    background-color: rgb(9, 85, 97);
+   
   }
   
   .camera {
@@ -188,10 +189,12 @@
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
     border-radius: 1.5rem;
     padding: 1rem;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
     text-align: center;
     color: rgb(19, 18, 18);
    background-color: rgb(9, 85, 97);
-   margin: 0.4rem;
+  
   }
   
   .camera {
