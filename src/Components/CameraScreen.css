@@ -180,7 +180,7 @@
     border-bottom: 3px solid wheat;
   }
   .camera-container {
-    height: 50vh;
+   
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,8 +189,7 @@
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
     border-radius: 1.5rem;
     padding: 1rem;
-    margin-left: 0.3rem;
-    margin-right: 0.3rem;
+   margin: 0.4rem;
     text-align: center;
     color: rgb(19, 18, 18);
    background-color: rgb(9, 85, 97);
@@ -314,11 +313,6 @@
       font-family: 'Times New Roman', Times, serif;
     text-align: left;
     }
-  @media (max-width: 768px) {
-    .camera-container {
-      height: 40vh;
-    }
-  
     .captured-photo {
       max-height: 40vh;
     }
@@ -327,6 +321,5 @@
       padding: 5px 10px;
     }
   }
-  
-}
 
+  
